@@ -1023,6 +1023,8 @@ describe('raven.middleware', function () {
     var client = new raven.Client(dsn).install();
 
     var EventEmitter = require('events');
+    // node 0.10 compat
+    if (process.version <= 'v0.11') EventEmitter = EventEmitter.EventEmitter;
     var e = new EventEmitter();
     e.on('done', function () {
       // Context won't propagate here without the explicit binding of req/res done in the middleware
